@@ -78,23 +78,57 @@ Validaciones del servicio: campos obligatorios, tipo de documento (CC/CE/TI/PA),
 
 ## 6. Control de versiones (Git + GitHub)
 
-Estrategia de ramas definida en GA7-220501096-AA1-EV01: `main`, `develop` y `feature/*`.
+**Repositorio:** https://github.com/hambretiktok-ops/resigest-residentes
+
+Estrategia de ramas definida en GA7-220501096-AA1-EV01: `main` (versión estable), `develop` (integración) y `feature/*` (desarrollo de cada funcionalidad sin afectar la versión estable). Los commits siguen la convención `tipo(módulo): descripción` y las versiones se marcan con versionado semántico.
+
+| Versión | Evidencia | Rama | Contenido |
+|---|---|---|---|
+| v1.0.0 | GA7-220501096-AA2-EV01 | `feature/modulo-residentes` | CRUD de residentes con JDBC y MySQL |
+| v1.1.0 | GA7-220501096-AA2-EV02 | `feature/pruebas-modulo` | Pruebas del módulo en terminal (`App.java`) |
+
+### EV01 – Codificación del módulo
 
 ```bash
 git init
-git add .
+git add .gitignore pom.xml README.md
 git commit -m "chore: estructura inicial del proyecto Maven"
 git branch -M main
 git checkout -b develop
 git checkout -b feature/modulo-residentes
-# ... trabajo del módulo ...
 git add .
-git commit -m "feat(residentes): CRUD de residentes con JDBC"
+git commit -m "feat(residentes): CRUD de residentes con JDBC y MySQL"
 git checkout develop
 git merge feature/modulo-residentes
 git checkout main
 git merge develop
 git tag v1.0.0
-git remote add origin https://github.com/USUARIO/resigest-residentes.git
-git push -u origin main develop feature/modulo-residentes --tags
+git remote add origin https://github.com/hambretiktok-ops/resigest-residentes.git
+git push -u origin main
+git push origin develop feature/modulo-residentes --tags
 ```
+
+### EV02 – Pruebas del módulo
+
+```bash
+git checkout develop
+git checkout -b feature/pruebas-modulo
+git add .
+git commit -m "test(residentes): pruebas del modulo en terminal con App.java"
+git checkout develop
+git merge feature/pruebas-modulo
+git checkout main
+git merge develop
+git tag v1.1.0
+git push origin main develop feature/pruebas-modulo --tags
+```
+
+## 7. Pruebas del módulo (EV02)
+
+La clase `App.java` ejecuta en la terminal las pruebas del CRUD (consulta, inserción, actualización, eliminación y validaciones) contra la base de datos real. El detalle de los casos de prueba está en [`PRUEBAS.md`](PRUEBAS.md).
+
+```bash
+mvn clean compile exec:java "-Dexec.mainClass=co.edu.sena.resigest.app.App"
+```
+
+Resultado obtenido: **17 pruebas aprobadas, 0 fallidas**.
