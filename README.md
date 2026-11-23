@@ -1,7 +1,7 @@
 # ResiGest – Módulo de Gestión de Residentes
 
 **Evidencia:** GA7-220501096-AA2-EV01 – Codificación de módulos del software
-**Programa:** Tecnología en Análisis y Desarrollo de Software (ADSO) – SENA Regional Norte de Santander
+**Programa:** Tecnología en Análisis y Desarrollo de Software (ADSO) – SENA
 **Aprendiz:** Edwar Stiven Diaz Torres · **Ficha:** 3389005
 **Instructor:** Manuel Dussan
 
